@@ -9,15 +9,12 @@ import org.springframework.boot.test.context.SpringBootTestContextBootstrapper
 import org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate
 import org.springframework.test.context.support.DefaultBootstrapContext
 import si.pecan.five.and.spek.functional.FunctionalApplication
-import si.pecan.five.and.spek.previous.Application
 
 
 @SpringBootTest(classes = arrayOf(FunctionalApplication::class))
 class FunctionalSpringTestConfiguration
 
-@SpringBootTest(classes = arrayOf(Application::class))
-@AutoConfigureMockMvc
-class GenericSpringTestConfigurationWithMockMvc
+
 
 
 class Injector(private val scope: SpecBody, testConfiguration: Class<*>? = FunctionalSpringTestConfiguration::class.java) {
