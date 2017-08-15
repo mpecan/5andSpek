@@ -8,10 +8,11 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTestContextBootstrapper
 import org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate
 import org.springframework.test.context.support.DefaultBootstrapContext
+import si.pecan.five.and.spek.functional.FunctionalApplication
 import si.pecan.five.and.spek.previous.Application
 
 
-@SpringBootTest(classes = arrayOf(Application::class))
+@SpringBootTest(classes = arrayOf(FunctionalApplication::class))
 class DefaultSpringTestConfiguration
 
 @SpringBootTest(classes = arrayOf(Application::class))
@@ -26,7 +27,8 @@ class Injector(private val scope: SpecBody, testConfiguration: Class<*>? = Defau
     }
     operator fun <T> invoke(clazz: Class<T>, mode: CachingMode = CachingMode.TEST): LifecycleAware<T> {
         return scope.memoized(mode) {
-            contextBootstrapper.buildTestContext().applicationContext.getBean(clazz)
+            val applicationContext = contextBootstrapper.buildTestContext().applicationContext
+            applicationContext.getBean(clazz)
         }
     }
 
