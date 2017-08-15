@@ -26,6 +26,5 @@ class HelloWorldControllerTests : Spek({
                 .andExpect(status().isOk)
                 .andExpect(content().string(`is`("Hello, Jeff!")))
     }
-
 })
 
