@@ -7,11 +7,11 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
-import si.pecan.five.and.spek.spring.SpringTestMockMvc
+import si.pecan.five.and.spek.spring.GenericSpringTestConfigurationWithMockMvc
 import si.pecan.five.and.spek.spring.injector
 
 class HelloWorldControllerTests : Spek({
-    val injector = injector(SpringTestMockMvc::class.java)
+    val injector = injector(GenericSpringTestConfigurationWithMockMvc::class.java)
     val mockMvc by injector(MockMvc::class.java)
 
 

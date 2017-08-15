@@ -13,14 +13,14 @@ import si.pecan.five.and.spek.previous.Application
 
 
 @SpringBootTest(classes = arrayOf(FunctionalApplication::class))
-class DefaultSpringTestConfiguration
+class FunctionalSpringTestConfiguration
 
 @SpringBootTest(classes = arrayOf(Application::class))
 @AutoConfigureMockMvc
-class SpringTestMockMvc
+class GenericSpringTestConfigurationWithMockMvc
 
 
-class Injector(private val scope: SpecBody, testConfiguration: Class<*>? = DefaultSpringTestConfiguration::class.java) {
+class Injector(private val scope: SpecBody, testConfiguration: Class<*>? = FunctionalSpringTestConfiguration::class.java) {
 
     private val contextBootstrapper = SpringBootTestContextBootstrapper().apply {
         bootstrapContext = DefaultBootstrapContext(testConfiguration, DefaultCacheAwareContextLoaderDelegate())
