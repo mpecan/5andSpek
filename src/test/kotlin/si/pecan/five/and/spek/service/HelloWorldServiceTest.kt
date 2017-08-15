@@ -10,7 +10,7 @@ class HelloWorldServiceTest : Spek({
     val test by injector(HelloWorldService::class.java)
 
     it("should correctly display Hello World!") {
-        expect(test.helloWorld(null)).to.equal("Hello World!")
+        expect(test.helloWorld(null)).to.equal("Hello, World!")
     }
 })
 

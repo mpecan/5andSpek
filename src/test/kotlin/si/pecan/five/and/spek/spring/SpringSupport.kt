@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTestContextBootstrapper
 import org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate
 import org.springframework.test.context.support.DefaultBootstrapContext
 import si.pecan.five.and.spek.functional.FunctionalApplication
-import si.pecan.five.and.spek.previous.Application
+import si.pecan.five.and.spek.Application
 
 
 @SpringBootTest(classes = arrayOf(FunctionalApplication::class))

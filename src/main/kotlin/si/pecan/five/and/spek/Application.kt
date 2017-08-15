@@ -1,4 +1,4 @@
-package si.pecan.five.and.spek.previous
+package si.pecan.five.and.spek
 
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication

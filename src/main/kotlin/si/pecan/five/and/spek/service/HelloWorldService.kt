@@ -4,5 +4,5 @@ import org.springframework.stereotype.Component
 
 @Component
 class HelloWorldService {
-    fun helloWorld(name: String?) = "Hello ${name ?: "World"}!"
+    fun helloWorld(name: String?) = "Hello, ${name ?: "World"}!"
 }
