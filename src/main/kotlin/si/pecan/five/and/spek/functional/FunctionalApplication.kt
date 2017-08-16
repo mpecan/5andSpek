@@ -4,6 +4,7 @@ import org.springframework.context.ApplicationContext
 import org.springframework.context.ApplicationContextAware
 import org.springframework.context.support.GenericApplicationContext
 import org.springframework.context.support.beans
+import si.pecan.five.and.spek.controller.HelloWorldController
 import si.pecan.five.and.spek.service.HelloWorldService
 
 class FunctionalApplication : ApplicationContextAware {
@@ -17,4 +18,5 @@ class FunctionalApplication : ApplicationContextAware {
 
 fun beanDefinitions() = beans {
     bean<HelloWorldService>()
+    bean { HelloWorldController(it.ref()) }
 }

@@ -13,6 +13,7 @@ import si.pecan.five.and.spek.Application
 
 
 @SpringBootTest(classes = arrayOf(FunctionalApplication::class))
+@AutoConfigureMockMvc
 class FunctionalSpringTestConfiguration
 
 @SpringBootTest(classes = arrayOf(Application::class))
