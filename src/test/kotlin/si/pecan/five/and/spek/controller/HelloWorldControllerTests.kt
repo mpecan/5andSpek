@@ -1,12 +1,14 @@
 package si.pecan.five.and.spek.controller
 
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import org.hamcrest.core.Is.`is`
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it
+import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import si.pecan.five.and.spek.spring.FunctionalSpringTestConfiguration
 import si.pecan.five.and.spek.spring.GenericSpringTestConfigurationWithMockMvc
 import si.pecan.five.and.spek.spring.injector
@@ -18,18 +20,18 @@ class HelloWorldControllerFunctionalTests: HelloWorldControllerBaseTest(Function
 abstract class HelloWorldControllerBaseTest(configClass: Class<*>) : Spek({
     val injector = injector(configClass)
     val mockMvc by injector(MockMvc::class.java)
-
+    val objectMapper = jacksonObjectMapper()
 
     it("should retrieve Hello World through MockMvc") {
         mockMvc.perform(get("/hello/world"))
                 .andExpect(status().isOk)
-                .andExpect(content().string(`is`("Hello, World!")))
+                .andExpect(jsonPath("$.response").value("Hello, World!"))
     }
 
     it("should correctly change World to Jeff when it is passed as the name query parameter") {
         mockMvc.perform(get("/hello/world?name={name}", "Jeff"))
                 .andExpect(status().isOk)
-                .andExpect(content().string(`is`("Hello, Jeff!")))
+                .andExpect(jsonPath("$.response").value("Hello, Jeff!"))
     }
 
 
@@ -41,7 +43,17 @@ abstract class HelloWorldControllerBaseTest(configClass: Class<*>) : Spek({
         it("should end up as \"${it.value}\" with an input of \"${it.key}\"") {
             mockMvc.perform(get("/hello/world?name={name}", it.key))
                     .andExpect(status().isOk)
-                    .andExpect(content().string(`is`(it.value)))
+                    .andExpect(jsonPath("$.response").value(it.value))
+        }
+
+        it("should correctly deserialize a post request with name \"${it.value}\""){
+
+            mockMvc.perform(post("/hello/world")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsBytes(HelloWorldRequest(it.key))))
+                    .andExpect(status().isOk)
+                    .andExpect(jsonPath("$.response").value(it.value))
         }
     }
 
